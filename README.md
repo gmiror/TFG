@@ -1,2 +1,2 @@
 # Repositorio TFG
-Repositorio del TFG "Diseño, construcción y programación de un vehículo autónomo a escala 1:10"
+Repositorio del TFG - "Desarrollo de una plataforma de vehículo autónomo “low cost”
