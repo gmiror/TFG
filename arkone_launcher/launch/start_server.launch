@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<launch>
+
+########################## Start Websocket/Webserver ##########################
+
+<node pkg="rosbridge_server" type="rosbridge_websocket" name="rosbridge_server" ns="arkone" output="screen">
+
+	<rosparam command="load" file="$(env HOME)/ecuData/ecuPort.yaml" />
+	<param name="ssl" type="boolean" value="true" />
+	<param name="keyfile" type="string" value="$(env HOME)/ecuData/server/certificate.key" />
+	<param name="certfile" type="string" value="$(env HOME)/ecuData/server/certificate.crt" />
+
+	<param name="topics_glob" value="[*]"/>
+	<param name="services_glob" value="[*])"/>
+	<param name="params_glob" value="[*]"/>
+
+</node>
+
+<node pkg="web_video_server" type="web_video_server" name="web_video_server" ns="arkone" output="screen">
+        <rosparam command="load" file="$(env HOME)/ecuData/ecuVideoPort.yaml" />
+</node>
+
+########################## Monitor packages ##########################
+
+<node name="ecu_memTotal" pkg="ecu_info" type="ecu_memTotal.py"/>
+<node name="ecu_memAvailable" pkg="ecu_info" type="ecu_memAvailable.py"/>
+
+
+</launch>

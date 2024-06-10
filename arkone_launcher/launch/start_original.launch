@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<launch>
+ 	
+########################## Camera packages ##########################
+    	
+ <arg name="image_view" default="false" />
+
+ <group ns="camera1">
+ 
+  <node name="front_right" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="yuyv" />
+    <param name="io_method" value="mmap"/>
+    <param name="fps" value="30" />
+  </node>
+  
+ </group>
+
+<group ns="camera2">
+
+  <node name="front_left" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video1" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="yuyv" />
+    <param name="io_method" value="mmap"/>
+    <param name="fps" value="30" />
+  </node>
+  
+</group>
+
+
+</launch>

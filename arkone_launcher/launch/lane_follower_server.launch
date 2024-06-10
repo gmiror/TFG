@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<launch>
+ 	
+########################## Camera packages ##########################
+    	
+ <arg name="image_view" default="false" />
+
+ <group ns="camera1">
+ 
+  <node name="front_right" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video/cam_right" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="yuyv" />
+    <param name="io_method" value="mmap"/>
+    <param name="fps" value="30" />
+  </node>
+  
+ </group>
+
+<group ns="camera2">
+
+  <node name="front_left" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video/cam_left" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="yuyv" />
+    <param name="io_method" value="mmap"/>
+    <param name="fps" value="30" />
+  </node>
+  
+</group>
+
+########################## Image stiwtching ##########################
+
+<node pkg="ros_realtime_image_stitcher" name="realtime_image_stitching_concatenate" type="realtime_image_stitching_concatenate.py" output="screen"/>
+
+
+########################## Detect Lanes + Lane Follower ##########################
+
+<node pkg="lane_follower" name="lane_detection" type="lane_detection.py" output="screen"/>
+<node pkg="lane_follower" name="lane_controller_angular" type="lane_controller_angular.py" output="screen"/>
+
+########################## Monitor packages ##########################
+
+<node pkg="rosbridge_server" type="rosbridge_websocket" name="rosbridge_server" ns="arkone" output="screen">
+
+	<rosparam command="load" file="$(env HOME)/ecuData/ecuPort.yaml" />
+	<param name="ssl" type="boolean" value="true" />
+	<param name="keyfile" type="string" value="$(env HOME)/ecuData/server/certificate.key" />
+	<param name="certfile" type="string" value="$(env HOME)/ecuData/server/certificate.crt" />
+
+	<param name="topics_glob" value="[*]"/>
+	<param name="services_glob" value="[*])"/>
+	<param name="params_glob" value="[*]"/>
+
+</node>
+
+<node pkg="web_video_server" type="web_video_server" name="web_video_server" ns="arkone" output="screen">
+        <rosparam command="load" file="$(env HOME)/ecuData/ecuVideoPort.yaml" />
+</node>
+
+<node name="ecu_memTotal" pkg="ecu_info" type="ecu_memTotal.py">
+</node>
+
+<node name="ecu_memAvailable" pkg="ecu_info" type="ecu_memAvailable.py">
+</node>
+
+
+
+</launch>
