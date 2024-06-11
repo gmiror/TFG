@@ -1,0 +1,20 @@
+<launch>
+    <node name="ecu_memTotal" pkg="ecu_info" type="ecu_memTotal.py">
+    </node>
+    <node name="ecu_memAvailable" pkg="ecu_info" type="ecu_memAvailable.py">
+    </node>
+    <node name="ecu_cpuInfo" pkg="ecu_info" type="ecu_cpuInfo.py">
+    </node>
+    <node name="ecu_cpuMHz" pkg="ecu_info" type="ecu_cpuMHz.py">
+    </node>
+    <node name="ecu_temp" pkg="ecu_info" type="ecu_temp.py">
+    </node>
+    <node name="ecu_status" pkg="ecu_info" type="ecu_status.py">
+    </node>
+    <node name="ecu_usageHDD" pkg="ecu_info" type="ecu_usageHDD.py">
+    </node>
+    <node name="ecu_infoOS" pkg="ecu_info" type="ecu_infoOS.py">
+    </node>
+    <node name="ecu_uptime" pkg="ecu_info" type="ecu_uptime.py">
+    </node>
+</launch>
